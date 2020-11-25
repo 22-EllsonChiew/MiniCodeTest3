@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Cone
+  - Coins
   layers:
   - Default
   - TransparentFX
