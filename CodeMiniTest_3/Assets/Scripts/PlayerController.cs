@@ -18,10 +18,14 @@ public class PlayerController : MonoBehaviour
     public Text Timer;
     float timercount = 10.0f;
     float CountDown = 0.0f;
+    float jumpForce = 10.0f;
+    float gravityModifier = 2.0f;
+    bool isGrounded;
 
     Rigidbody PlayerRb;
+    public Renderer playerRdr;
 
-
+    public Material[] playerMtrs;
 
 
 
@@ -31,6 +35,13 @@ public class PlayerController : MonoBehaviour
     {
         PlayerRb = GetComponent<Rigidbody>();
         AniPlayer = GetComponent<Animator>();
+        playerRdr = GetComponent<Renderer>();
+
+        isGrounded = true;
+        Physics.gravity *= gravityModifier;
+
+
+
     }
 
     // Update is called once per frame
@@ -47,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-
+        PlayerJump();
 
 
 
@@ -100,16 +111,18 @@ public class PlayerController : MonoBehaviour
             bridgeT.SetBool("ConeTrue", false);
         }
 
+
+
     }
 
 
-       
-    
-    
+
+
+
 
     private void OnTriggerEnter(Collider col)
     {
-        
+
         if (iTotalPowerUpLeft == 0)
         {
             if (col.gameObject.CompareTag("Cone"))
@@ -118,16 +131,16 @@ public class PlayerController : MonoBehaviour
                 BridgeTurn = true;
 
             }
-            
+
         }
-        else if(iTotalPowerUpLeft < 1 )
+        else if (iTotalPowerUpLeft < 1)
         {
             if (col.gameObject.CompareTag("Cone"))
             {
                 Debug.Log("Collect all power up");
 
             }
-            
+
         }
         if (col.gameObject.CompareTag("Coins"))
         {
@@ -146,5 +159,37 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 
-    
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.CompareTag("Grounded"))
+        {
+            isGrounded = true;
+
+
+            playerRdr.material.color = playerMtrs[2].color;
+
+            Debug.Log("change");
+        }
+
+    }
+
+    private void PlayerJump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            PlayerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
+
+
+            playerRdr.material.color = playerMtrs[4].color;
+
+            Debug.Log("change again");
+        }
+    }
+
+
+
+
 }
