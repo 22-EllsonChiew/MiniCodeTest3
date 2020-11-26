@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     float jumpForce = 10.0f;
     float gravityModifier = 2.0f;
     bool isGrounded;
+    public bool isHitCrate = false;
+
+
 
     Rigidbody PlayerRb;
     public Renderer playerRdr;
@@ -172,6 +175,14 @@ public class PlayerController : MonoBehaviour
             Debug.Log("change");
         }
 
+        if(collision.gameObject.CompareTag("TagBox"))
+        {
+            Debug.Log("Collided with box");
+            isHitCrate = true;
+        }
+
+
+
     }
 
     private void PlayerJump()
@@ -188,7 +199,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+   
 
 
 }

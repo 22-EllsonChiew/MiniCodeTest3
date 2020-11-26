@@ -9,6 +9,8 @@ public class PlaneMoving : MonoBehaviour
     float zLowerLimit = 24.37f;
     float moveSpeed = 2.0f;
     float zUpperLimit = 31.76f;
+    public GameObject Players;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,29 +20,35 @@ public class PlaneMoving : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isMovingBack && !isMovingforward)
+        if (Players.GetComponent<PlayerController>().isHitCrate)
         {
-            if(transform.position.z >= zLowerLimit)
-            {
-                transform.Translate(Vector3.back * Time.deltaTime * moveSpeed);
-            }
-            else
-            {
-                isMovingBack = !isMovingBack;
-                isMovingforward = !isMovingforward;
-            }
-        }
 
-        if(isMovingforward && !isMovingBack)
-        {
-            if(transform.position.z <= zUpperLimit)
+
+            if (isMovingBack && !isMovingforward)
             {
-                transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
+                if (transform.position.z >= zLowerLimit)
+                {
+                    transform.Translate(Vector3.back * Time.deltaTime * moveSpeed);
+                }
+                else
+                {
+                    isMovingBack = !isMovingBack;
+                    isMovingforward = !isMovingforward;
+                }
             }
-            else
+
+
+            if (isMovingforward && !isMovingBack)
             {
-                isMovingBack = !isMovingBack;
-                isMovingforward = !isMovingforward;
+                if (transform.position.z <= zUpperLimit)
+                {
+                    transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
+                }
+                else
+                {
+                    isMovingBack = !isMovingBack;
+                    isMovingforward = !isMovingforward;
+                }
             }
         }
     }
