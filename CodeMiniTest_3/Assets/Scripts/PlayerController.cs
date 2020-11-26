@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     {
         PlayerRb = GetComponent<Rigidbody>();
         AniPlayer = GetComponent<Animator>();
-        playerRdr = GetComponent<Renderer>();
 
         isGrounded = true;
         Physics.gravity *= gravityModifier;
@@ -168,7 +167,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
 
 
-            playerRdr.material.color = playerMtrs[2].color;
+            playerRdr.material.color = playerMtrs[1].color;
 
             Debug.Log("change");
         }
@@ -183,7 +182,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
 
 
-            playerRdr.material.color = playerMtrs[4].color;
+            playerRdr.material.color = playerMtrs[0].color;
 
             Debug.Log("change again");
         }
